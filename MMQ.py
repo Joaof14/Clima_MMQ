@@ -39,16 +39,16 @@ def calcula_r2(coluna_x, coluna_y, a, b):
 
 
 
-def plotgrafico( x,  y , linha, label, filename):
+def plotgrafico( x,  y , linha, label):
     graf, eix = plt.subplots()
     eix.scatter(x,y)
-    eix.plot(x, linha, label = label )
-    eix.ylabel('autovalores')
-    eix.xlabel('iterações')
+    eix.plot(linha, label = label )
+    eix.set_ylabel('Co2 ppm')
+    eix.set_xlabel('Data')
     eix.set_title('Grafíco')
     eix.grid()
     eix.legend()
-    
+    graf.show()
     
     
 
@@ -69,7 +69,7 @@ def lin(x, y):
     plotgrafico(x_, y_, linha, label=label)
 
     
-    return a,b, linha, r2
+    return label
 
     
 
@@ -89,7 +89,7 @@ def logaritmo(x, y):
     label = 'y = {:.4f}*log(x) + {:.4f}\nR² = {:.4f}'.format(a, b, r2)
     plotgrafico(x_, y_, linha, label=label)
 
-    return a,b, linha, r2
+    return label
 
 
 def potencial(x, y):
@@ -111,7 +111,7 @@ def potencial(x, y):
     plotgrafico(x_, y_, linha, label=label)
 
     
-    return a,b, linha, r2
+    return label
 
 
 def exponencial(x, y):
@@ -135,9 +135,9 @@ def exponencial(x, y):
 
     plotgrafico(x_, y_, linha, label=label)
 
-    # criar return a,b, linha, r2
+    # criar return label
     
-    return a,b, linha, r2
+    return label
 
 
 def geometrico(x, y):
@@ -158,9 +158,9 @@ def geometrico(x, y):
     label = 'y = {:.4f}*x**({:.4f})\nR² = {:.4f}'.format(b,a, r2)
     plotgrafico(x_, y_, linha, label=label)
 
-    # criar return a,b, linha, r2
+    # criar return label
     
-    return a,b, linha, r2
+    return label
 
 
 def polinomial(x, y, grau=2):
@@ -186,7 +186,30 @@ def polinomial(x, y, grau=2):
     plotgrafico(x, y, linha, label=label)
 
 
-    return a,b, linha, r2
+    return label
+
+#importar dados
+df = pd.read_csv('Data/final_data.csv')
+y = df['Co2 ppm']
+x = df['decimal date']
 
 
+#gerar resultados
+resultado = lin(x, y)
+resultados = []
+resultados.append(resultado)
 
+resultado = logaritmo(x, y)
+resultados.append(resultado)
+
+resultado = exponencial(x, y)
+resultados.append(resultado)
+
+resultado = potencial(x, y)
+resultados.append(resultado)
+
+resultado = geometrico(x, y)
+resultados.append(resultado)
+
+resultado = polinomial(x, y)
+resultados.append(resultado)
