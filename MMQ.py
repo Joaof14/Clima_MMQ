@@ -69,7 +69,7 @@ def lin(x, y):
     plotgrafico(x_, y_, linha, label=label)
 
     
-    return
+    return a,b, linha, r2
 
     
 
@@ -89,7 +89,7 @@ def logaritmo(x, y):
     label = 'y = {:.4f}*log(x) + {:.4f}\nR² = {:.4f}'.format(a, b, r2)
     plotgrafico(x_, y_, linha, label=label)
 
-    return
+    return a,b, linha, r2
 
 
 def potencial(x, y):
@@ -111,7 +111,7 @@ def potencial(x, y):
     plotgrafico(x_, y_, linha, label=label)
 
     
-    return
+    return a,b, linha, r2
 
 
 def exponencial(x, y):
@@ -135,9 +135,9 @@ def exponencial(x, y):
 
     plotgrafico(x_, y_, linha, label=label)
 
-    # criar return
+    # criar return a,b, linha, r2
     
-    return
+    return a,b, linha, r2
 
 
 def geometrico(x, y):
@@ -158,9 +158,9 @@ def geometrico(x, y):
     label = 'y = {:.4f}*x**({:.4f})\nR² = {:.4f}'.format(b,a, r2)
     plotgrafico(x_, y_, linha, label=label)
 
-    # criar return
+    # criar return a,b, linha, r2
     
-    return
+    return a,b, linha, r2
 
 
 def polinomial(x, y, grau=2):
@@ -182,33 +182,11 @@ def polinomial(x, y, grau=2):
     r2 = np.sum((fx - ym)**2) / np.sum((y - ym)**2)
     linha = fx
 
-    return
+    label = 'y = ({:.4f}*x**2) + {:.4f}*x + {:.4f} \nR² = {:.4f}'.format(a,b,c, r2)
+    plotgrafico(x, y, linha, label=label)
+
+
+    return a,b, linha, r2
 
 
 
-"""
-
-x = np.array([1.5, 2, 3, 4, 5])
-y = 345672334566777887578203*np.array([2, 4, 5, 4, 5] = 5
-
-
-
-x = x
-y = y
-
-resultado = lin(x,)
-print('Linear: ', resultado)
-
-resultado = logaritmo(x,)
-print('Logaritmo: ', resultado)
-
-resultado = exponencial(x,)
-print('exponencial: ', resultado)
-
-resultado = potencial(x,)
-print('potencial: ', resultado)
-
-resultado = geometrico(x,)
-print('geometrico: ', resultado)
-
-"""
