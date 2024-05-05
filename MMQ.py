@@ -66,7 +66,7 @@ def lin(x, y):
     linha = a*x + b
     label = 'y = {:.4f}*x + {:.4f}\nR² = {:.4f}'.format(a, b, r2)
 
-    plotgrafico(x_, y_, linha, label=label)
+    plotgrafico(x, y, linha, label=label)
 
     
     return label
@@ -87,7 +87,7 @@ def logaritmo(x, y):
     # Gráficos
     linha = a*np.log(x) + b
     label = 'y = {:.4f}*log(x) + {:.4f}\nR² = {:.4f}'.format(a, b, r2)
-    plotgrafico(x_, y_, linha, label=label)
+    plotgrafico(x, y, linha, label=label)
 
     return label
 
@@ -108,7 +108,7 @@ def potencial(x, y):
     linha = b*x**a
     label = 'y = {:.4f}*x + {:.4f}\nR2 = {:.4f}'.format(a, b, r2)
 
-    plotgrafico(x_, y_, linha, label=label)
+    plotgrafico(x, y, linha, label=label)
 
     
     return label
@@ -133,7 +133,7 @@ def exponencial(x, y):
 
     label = 'y = {:.4f}*e**({:.4f}*x)\nR² = {:.4f}'.format(b,a, r2)
 
-    plotgrafico(x_, y_, linha, label=label)
+    plotgrafico(x, y, linha, label=label)
 
     # criar return label
     
@@ -156,7 +156,7 @@ def geometrico(x, y):
     linha = b*x**a
 
     label = 'y = {:.4f}*x**({:.4f})\nR² = {:.4f}'.format(b,a, r2)
-    plotgrafico(x_, y_, linha, label=label)
+    plotgrafico(x, y, linha, label=label)
 
     # criar return label
     
@@ -188,11 +188,37 @@ def polinomial(x, y, grau=2):
 
     return label
 
+
+
+
+
+
+x = np.array([1, 2, 3, 4, 5])
+y = np.array([2, 4, 5, 8, 10])
+pont = 5
+
+resultado = lin(x,y)
+print('Linear: ', resultado)
+
+resultado = logaritmo(x,y)
+print('Logaritmo: ', resultado)
+
+resultado = exponencial(x,y)
+print('exponencial: ', resultado)
+
+resultado = potencial(x,y)
+print('potencial: ', resultado)
+
+resultado = geometrico(x,y)
+print('geometrico: ', resultado)
+
+
+
+
 #importar dados
 df = pd.read_csv('Data/final_data.csv')
 y = df['Co2 ppm']
 x = df['decimal date']
-
 
 #gerar resultados
 resultado = lin(x, y)
@@ -213,3 +239,43 @@ resultados.append(resultado)
 
 resultado = polinomial(x, y)
 resultados.append(resultado)
+
+
+
+
+""" 
+
+
+
+
+
+
+
+
+
+
+
+import matplotlib.pyplot as plt
+data1 = [5103020100, 5373080100, 5403020100, 5653340120, 5704020150]
+data2 = [10300100, 17300100, 20300100, 26534020, 30040010]
+
+fig, ax1 = plt.subplots()
+
+color = 'tab:red'
+ax1.set_xlabel('time (s)')
+ax1.set_ylim(5102020100, 5704020155)
+ax1.set_ylabel('GDP Country W (trillion)', color=color)
+ax1.plot(data1, color=color)
+ax1.tick_params(axis='y', labelcolor=color)
+
+ax2 = ax1.twinx() 
+
+color = 'tab:green'
+ax2.set_ylabel('GDP City Z (million)', color=color) 
+ax2.set_ylim(1300100, 100040010)
+ax2.plot(data2,color=color)
+ax2.tick_params(axis='y', labelcolor=color)
+
+fig.tight_layout() 
+plt.legend()
+plt.show()"""
