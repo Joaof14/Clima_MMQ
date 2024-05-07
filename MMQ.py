@@ -189,9 +189,9 @@ df = pd.read_csv('Data/final_data.csv')
 y = df['Co2 ppm']
 x = df['decimal date']
 
-#x = np.array([1,2,3,4,5, 9])
+x = np.array([1,2,3,4,5, 9])
 
-#y = np.array([2,4,6,8,11, 26])
+y = np.array([2,4,6,8,11, 26])
 
 #gerar resultados
 resultado = lin(x, y)
