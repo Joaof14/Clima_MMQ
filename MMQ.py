@@ -44,7 +44,7 @@ def plotgrafico( x,  y , linha, label):
     eix.set_xlabel('Data')
     eix.set_title('Grafico')
     eix.legend()
-    
+    graf.show()
     
     
 
@@ -178,37 +178,12 @@ def polinomial(x, y, grau=2):
     r2 = np.sum((fx - ym)**2) / np.sum((y - ym)**2)
     linha = fx
 
-    label = 'y = ({:.4f}*x**2) + {:.4f}*x + {:.4f} \nR² = {:.4f}'.format(a,b,c, r2)
+    eq = 'y = ({:.4f}*x**2) + {:.4f}*x + {:.4f} \n'.format(a,b,c)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
     plotgrafico(x, y, linha, label=label)
 
 
     return label
 
-#importar dados
-df = pd.read_csv('Data/final_data.csv')
-y = df['Co2 ppm']
-x = df['decimal date']
 
-#x = np.array([1,2,3,4,5, 9])
-
-#y = np.array([2,4,6,8,11,26])
-
-#gerar resultados
-resultado = lin(x, y)
-resultados = []
-resultados.append(resultado)
-
-resultado = logaritmo(x, y)
-resultados.append(resultado)
-
-resultado = exponencial(x, y)
-resultados.append(resultado)
-
-resultado = potencial(x, y)
-resultados.append(resultado)
-
-resultado = geometrico(x, y)
-resultados.append(resultado)
-
-resultado = polinomial(x, y)
-resultados.append(resultado)
