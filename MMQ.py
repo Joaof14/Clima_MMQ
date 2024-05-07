@@ -45,7 +45,7 @@ def plotgrafico( x,  y , linha, label):
     eix.set_title('Grafico')
     eix.legend()
     graf.show()
-    
+
     
 
 
@@ -58,14 +58,18 @@ def lin(x, y):
     a, b = calcula_reg(x_, y_)
     # Calculo r2
     r2 = calcula_r2(x_, y_, a, b)
-    # Gráficos
+    
+    #valores do ajuste
     linha = a*x + b
-    label = 'y = {:.4f}*x + {:.4f}\nR² = {:.4f}'.format(a, b, r2)
-
+    eq = 'y = {:.4f}*x + {:.4f}\n'.format(a, b)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
+    
+    # Gráficos
     plotgrafico(x, y, linha, label=label)
 
     
-    return label
+    return eq, r2
 
     
 
@@ -80,12 +84,16 @@ def logaritmo(x, y):
     # Calculo r2
     r2 = calcula_r2(x_, y_, a, b)
     
-    # Gráficos
+    #valores do ajuste
     linha = a*np.log(x) + b
-    label = 'y = {:.4f}*log(x) + {:.4f}\nR² = {:.4f}'.format(a, b, r2)
+    eq = 'y = {:.4f}*log(x) + {:.4f}\n'.format(a, b)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
+    
+    # Gráficos
     plotgrafico(x, y, linha, label=label)
 
-    return label
+    return eq, r2
 
 
 def potencial(x, y):
@@ -100,14 +108,17 @@ def potencial(x, y):
     
     # Conversão dos coeficientes
     b = np.exp(b)
-    # Gráficos
+    
+    #valores do ajuste
     linha = b*x**a
-    label = 'y = {:.4f}*x + {:.4f}\nR2 = {:.4f}'.format(a, b, r2)
-
+    eq = 'y = {:.4f}*x + {:.4f}\n'.format(a, b)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
+    # Gráficos
     plotgrafico(x, y, linha, label=label)
 
     
-    return label
+    return eq, r2
 
 
 def exponencial(x, y):
@@ -124,16 +135,19 @@ def exponencial(x, y):
     
     # Conversão dos coeficientes (se necessário)
     b = np.exp(b)
-    # Gráficos
+
+    #valores do ajuste
     linha = b*np.exp(a*x)
+    eq = 'y = {:.4f}*e**({:.4f}*x)\n'.format(b,a)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
 
-    label = 'y = {:.4f}*e**({:.4f}*x)\nR² = {:.4f}'.format(b,a, r2)
-
+    # Gráficos
     plotgrafico(x, y, linha, label=label)
 
-    # criar return label
+    # criar return eq, r2
     
-    return label
+    return eq, r2
 
 
 def geometrico(x, y):
@@ -148,15 +162,19 @@ def geometrico(x, y):
     # Conversão dos coeficientes (se necessário)
     a = np.exp(a)
     b = np.exp(b)
-    # Gráficos
+    
+    #valores do ajuste
     linha = b*x**a
-
-    label = 'y = {:.4f}*x**({:.4f})\nR² = {:.4f}'.format(b,a, r2)
+    eq = 'y = {:.4f}*x**({:.4f})\n'.format(b,a)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
+    
+    # Gráficos
     plotgrafico(x, y, linha, label=label)
 
-    # criar return label
+    # criar return eq, r2
     
-    return label
+    return eq, r2
 
 
 def polinomial(x, y, grau=2):
@@ -176,14 +194,16 @@ def polinomial(x, y, grau=2):
     fx = np.sum(c*(x**i)for i, c in enumerate(resul))
     ym = np.mean(y)
     r2 = np.sum((fx - ym)**2) / np.sum((y - ym)**2)
+    
+    #valores do ajuste
     linha = fx
-
     eq = 'y = ({:.4f}*x**2) + {:.4f}*x + {:.4f} \n'.format(a,b,c)
     r2 = 'R² = {:.4f}'.format(r2)
     label = eq + r2
+    
     plotgrafico(x, y, linha, label=label)
 
 
-    return label
+    return eq, r2
 
 
