@@ -7,8 +7,8 @@ from MMQ import *
 df = pd.read_excel('Data/final_data.xlsx')
 
 # fazer pra CO2
-y = df['Co2 ppm']
-x = df['decimal date']
+y = np.array(df['Co2 ppm'])
+x = np.array(df['decimal date'])
 
 #x = np.array([1,2,3,4,5, 9])
 
