@@ -21,10 +21,8 @@ def calcula_reg(coluna_x, coluna_y):
     soma_xy = np.sum(coluna_x * coluna_y)
 
    # calculo dos coeficientes a e b
-    a = ((n * soma_xy) - (soma_x * soma_y)) / \
-        ((n * soma_x2) - (soma_x * soma_x))
-    b = ((soma_x * soma_xy) - (soma_y * soma_x2)) / \
-        ((soma_x * soma_x) - (n * soma_x2))
+    a = ((n * soma_xy) - (soma_x * soma_y)) /  ((n * soma_x2) - (soma_x * soma_x))
+    b = ((soma_x * soma_xy) - (soma_y * soma_x2)) / ((soma_x * soma_x) - (n * soma_x2))
 
     return a, b
 
@@ -42,13 +40,12 @@ def calcula_r2(coluna_x, coluna_y, a, b):
 def plotgrafico( x,  y , linha, label):
     graf, eix = plt.subplots()
     eix.scatter(x,y)
-    eix.plot(linha, label = label )
+    eix.plot(linha, label = label)
     eix.set_ylabel('Co2 ppm')
     eix.set_xlabel('Data')
     eix.set_title('Grafíco')
     eix.grid()
     eix.legend()
-    graf.show()
     
     
 
@@ -66,7 +63,7 @@ def lin(x, y):
     linha = a*x + b
     label = 'y = {:.4f}*x + {:.4f}\nR² = {:.4f}'.format(a, b, r2)
 
-    plotgrafico(x_, y_, linha, label=label)
+    plotgrafico(x, y, linha, label=label)
 
     
     return label
@@ -87,7 +84,7 @@ def logaritmo(x, y):
     # Gráficos
     linha = a*np.log(x) + b
     label = 'y = {:.4f}*log(x) + {:.4f}\nR² = {:.4f}'.format(a, b, r2)
-    plotgrafico(x_, y_, linha, label=label)
+    plotgrafico(x, y, linha, label=label)
 
     return label
 
@@ -108,7 +105,7 @@ def potencial(x, y):
     linha = b*x**a
     label = 'y = {:.4f}*x + {:.4f}\nR2 = {:.4f}'.format(a, b, r2)
 
-    plotgrafico(x_, y_, linha, label=label)
+    plotgrafico(x, y, linha, label=label)
 
     
     return label
@@ -133,7 +130,7 @@ def exponencial(x, y):
 
     label = 'y = {:.4f}*e**({:.4f}*x)\nR² = {:.4f}'.format(b,a, r2)
 
-    plotgrafico(x_, y_, linha, label=label)
+    plotgrafico(x, y, linha, label=label)
 
     # criar return label
     
@@ -156,7 +153,7 @@ def geometrico(x, y):
     linha = b*x**a
 
     label = 'y = {:.4f}*x**({:.4f})\nR² = {:.4f}'.format(b,a, r2)
-    plotgrafico(x_, y_, linha, label=label)
+    plotgrafico(x, y, linha, label=label)
 
     # criar return label
     
@@ -193,6 +190,9 @@ df = pd.read_csv('Data/final_data.csv')
 y = df['Co2 ppm']
 x = df['decimal date']
 
+#x = np.array([1,2,3,4,5, 9])
+
+#y = np.array([2,4,6,8,11, 26])
 
 #gerar resultados
 resultado = lin(x, y)
