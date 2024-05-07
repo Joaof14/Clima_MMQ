@@ -61,7 +61,7 @@ def lin(x, y):
     
     #valores do ajuste
     linha = a*x + b
-    eq = 'y = {:.4f}*x + {:.4f}\n'.format(a, b)
+    eq = 'y = {:.4f}*x + ({:.4f})\n'.format(a, b)
     r2 = 'R² = {:.4f}'.format(r2)
     label = eq + r2
     
@@ -86,7 +86,7 @@ def logaritmo(x, y):
     
     #valores do ajuste
     linha = a*np.log(x) + b
-    eq = 'y = {:.4f}*log(x) + {:.4f}\n'.format(a, b)
+    eq = 'y = {:.4f}*log(x) + ({:.4f})\n'.format(a, b)
     r2 = 'R² = {:.4f}'.format(r2)
     label = eq + r2
     
@@ -111,7 +111,7 @@ def potencial(x, y):
     
     #valores do ajuste
     linha = b*x**a
-    eq = 'y = {:.4f}*x + {:.4f}\n'.format(a, b)
+    eq = 'y = {:.4f}*x + ({:.4f})\n'.format(a, b)
     r2 = 'R² = {:.4f}'.format(r2)
     label = eq + r2
     # Gráficos
@@ -197,7 +197,7 @@ def polinomial(x, y, grau=2):
     
     #valores do ajuste
     linha = fx
-    eq = 'y = ({:.4f}*x**2) + {:.4f}*x + {:.4f} \n'.format(a,b,c)
+    eq = 'y = ({:.4f}*x**2) + ({:.4f})*x + ({:.4f}) \n'.format(a,b,c)
     r2 = 'R² = {:.4f}'.format(r2)
     label = eq + r2
     
