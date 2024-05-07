@@ -1,4 +1,4 @@
-,year,month,decimal date,temperature anomalies,Co2 ppm
+index,year,month,decimal date,temperature anomalies,Co2 ppm
 0,1959,1,1959.0411,0.13,315.58
 1,1959,2,1959.126,0.1,316.48
 2,1959,3,1959.2027,0.22,316.65

@@ -42,9 +42,9 @@ def plotgrafico( x,  y , linha, label):
     eix.plot(linha, label = label)
     eix.set_ylabel('Co2 ppm')
     eix.set_xlabel('Data')
-    eix.set_title('Grafíco')
-    eix.grid()
+    eix.set_title('Grafico')
     eix.legend()
+    
     
     
 
@@ -191,7 +191,7 @@ x = df['decimal date']
 
 #x = np.array([1,2,3,4,5, 9])
 
-#y = np.array([2,4,6,8,11, 26])
+#y = np.array([2,4,6,8,11,26])
 
 #gerar resultados
 resultado = lin(x, y)
