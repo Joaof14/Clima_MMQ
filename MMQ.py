@@ -111,7 +111,7 @@ def potencial(x, y):
     
     #valores do ajuste
     linha = b*x**a
-    eq = 'y = {:.4f}*x + ({:.4f})\n'.format(a, b)
+    eq = 'y = {:.4f}*x**({:.4f})\n'.format(b,a)
     r2 = 'R² = {:.4f}'.format(r2)
     label = eq + r2
     # Gráficos
