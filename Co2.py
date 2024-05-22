@@ -28,8 +28,8 @@ resultados.append(resultado)
 resultado = potencial(x, y)
 resultados.append(resultado)
 
-resultado = geometrico(x, y)
-resultados.append(resultado)
+#resultado = geometrico(x, y)
+#resultados.append(resultado)
 
 resultado = polinomial(x, y)
 resultados.append(resultado)

@@ -1,13 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-from MMQ import *
+from MMQ_norm import *
+
+
+
 
 #importar dados
 df = pd.read_excel('Data/final_data.xlsx')
 
-#importar dados
-df = pd.read_excel('Data/final_data.xlsx')
 
 #anomalias
 y = df['temperature anomalies']
@@ -31,8 +32,8 @@ resultados.append(resultado)
 resultado = potencial(x, y)
 resultados.append(resultado)
 
-resultado = geometrico(x, y)
-resultados.append(resultado)
+#resultado = geometrico(x, y)
+#resultados.append(resultado)
 
 resultado = polinomial(x, y)
 resultados.append(resultado) 
