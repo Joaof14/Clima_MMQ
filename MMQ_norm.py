@@ -112,7 +112,7 @@ def potencial(x, y):
     #valores do ajuste
     linha = b*x**a - yNorm
     y = y - yNorm
-    eq = 'y = {:.10f}*x**({:.10f})\n'.format(b,a)
+    eq = 'y = {:.10f}*x**({:.10f}) - {:.4f}\n'.format(b,a, yNorm)
     r2 = 'R² = {:.10f}'.format(r2)
     label = eq + r2
     # Gráficos
@@ -144,7 +144,7 @@ def exponencial(x, y):
     #valores do ajuste
     linha = b*np.exp(a*x) - yNorm
     y = y - yNorm
-    eq = 'y = {:.10f}*e**({:.10f}*x)\n'.format(b,a)
+    eq = 'y = {:.10f}*e**({:.10f}*x) - {:.4f}\n'.format(b,a, yNorm)
     r2 = 'R² = {:.10f}'.format(r2)
 
     
@@ -178,7 +178,7 @@ def geometrico(x, y):
     #valores do ajuste
     linha = b*x**a - yNorm
     y = y - yNorm 
-    eq = 'y = {:.10f}*x**({:.10f})\n'.format(b,a)
+    eq = 'y = {:.10f}*x**({:.10f}) - {:.4f}\n'.format(b,a, yNorm)
     r2 = 'R² = {:.10f}'.format(r2)
     label = eq + r2
     
