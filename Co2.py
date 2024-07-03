@@ -1,7 +1,251 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-from MMQ import *
+
+
+array_prev = [2034.0410, 2034.1257, 2034.2049, 2034.2896, 2034.3716, 2034.4563, 2034.5383, 2034.6230, 2034.7077, 2034.7896, 2034.8743, 2034.9563]
+
+
+# funções para calcular
+def calcula_reg(coluna_x, coluna_y):
+
+   # tabelamento
+    n = len(coluna_x)
+    soma_x = np.sum(coluna_x)
+    soma_y = np.sum(coluna_y)
+    soma_x2 = np.sum(coluna_x * coluna_x)
+    soma_xy = np.sum(coluna_x * coluna_y)
+
+   # calculo dos coeficientes a e b
+    a = ((n * soma_xy) - (soma_x * soma_y)) /  ((n * soma_x2) - (soma_x * soma_x))
+    b = ((soma_x * soma_xy) - (soma_y * soma_x2)) / ((soma_x * soma_x) - (n * soma_x2))
+
+    return a, b
+
+
+def calcula_r2(coluna_x, coluna_y, a, b):
+
+    fx = a * coluna_x + b
+    ym = np.mean(coluna_y)
+    r2 = np.sum((fx - ym)**2) / np.sum((coluna_y - ym)**2)
+
+    return r2
+
+def plotgrafico( x,  y , linha, label):
+    graf, eix = plt.subplots()
+    eix.scatter(x,y, color = 'black')
+    eix.plot(x,linha, label = label, color = 'red')
+    eix.set_ylabel('Co2 ppm')
+    eix.set_xlabel('Data')
+    eix.set_title('Grafico')
+    eix.legend()
+    graf.show()
+
+    
+
+
+
+def lin(x, y):
+    x_ = x
+    y_ = y
+
+    # Calculos de coeficientes
+    a, b = calcula_reg(x_, y_)
+    # Calculo r2
+    r2 = calcula_r2(x_, y_, a, b)
+    
+    #valores do ajuste
+    linha = a*x + b
+    eq = 'y = {:.4f}*x + ({:.4f})\n'.format(a, b)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
+    
+    # Gráficos
+    plotgrafico(x, y, linha, label=label)
+
+    prev = []
+    
+    for dataFut in array_prev:
+        prev.append(a*dataFut + b)
+    
+    
+    
+    return eq, r2, prev
+    
+
+
+    
+
+
+def logaritmo(x, y):
+
+    x_ = np.log(x)
+    y_ = y
+
+    # Calculos de coeficientes
+    a, b = calcula_reg(x_, y_)
+    # Calculo r2
+    r2 = calcula_r2(x_, y_, a, b)
+    
+    #valores do ajuste
+    linha = a*np.log(x) + b
+    eq = 'y = {:.4f}*log(x) + ({:.4f})\n'.format(a, b)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
+    
+    # Gráficos
+    plotgrafico(x, y, linha, label=label)
+
+    prev = []
+    
+    for dataFut in array_prev:
+        prev.append(a*np.log(dataFut) + b)
+
+    
+
+    return eq, r2, prev
+
+
+def potencial(x, y):
+
+    x_ = np.log(x)
+    y_ = np.log(y)
+
+    # Calculos de coeficientes
+    a, b = calcula_reg(x_, y_)
+    # Calculo r2
+    r2 = calcula_r2(x_, y_, a, b)
+    
+    # Conversão dos coeficientes
+    b = np.exp(b)
+    
+    #valores do ajuste
+    linha = b*x**a
+    eq = 'y = {:.4f}*x**({:.4f})\n'.format(b,a)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
+    # Gráficos
+    plotgrafico(x, y, linha, label=label)
+
+    prev = []
+   
+    for dataFut in array_prev:
+       prev.append(b*dataFut**a )
+
+  
+   
+   # Gráficos
+    plotgrafico(x, y, linha, label=label)
+   
+
+
+
+    return eq, r2, prev
+
+
+def exponencial(x, y):
+
+    y_ = np.log(y)
+    x_ = x
+
+    # Transformações (g2 e gj)
+
+    # Calculos de coeficientes
+    a, b = calcula_reg(x_, y_)
+    # Calculo r2
+    r2 = calcula_r2(x_, y_, a, b)
+    
+    # Conversão dos coeficientes (se necessário)
+    b = np.exp(b)
+
+    #valores do ajuste
+    linha = b*np.exp(a*x)
+    eq = 'y = {:.4f}*e**({:.4f}*x)\n'.format(b,a)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
+
+    prev = []
+    
+    for dataFut in array_prev:
+        prev.append(b*np.exp(a*dataFut))
+    
+ 
+    # Gráficos
+    plotgrafico(x, y, linha, label=label)
+ 
+    # criar return eq, r2
+    
+    return eq, r2, prev
+
+
+def geometrico(x, y):
+
+    y_ = np.log(y)
+    x_ = x
+
+    # Calculos de coeficientes
+    a, b = calcula_reg(x_, y_)
+    # Calculo r2
+    r2 = calcula_r2(x_, y_, a, b)
+    # Conversão dos coeficientes (se necessário)
+    a = np.exp(a)
+    b = np.exp(b)
+    
+    #valores do ajuste
+    linha = b*x**a
+    eq = 'y = {:.4f}*x**({:.4f})\n'.format(b,a)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
+    
+    # Gráficos
+    plotgrafico(x, y, linha, label=label)
+
+    # criar return eq, r2
+    
+    return eq, r2
+
+
+def polinomial(x, y, grau=2):
+
+    n = grau + 1
+    mA = np.zeros((n, n))
+    mB = np.zeros(n)
+
+    for i in range(mB.size):
+        for j in range(mB.size):
+            mA[i][j] = (x**(i + j)).sum()
+        mB[i] = (y * (x**(i))).sum()
+
+    resul = np.linalg.solve(mA, mB)
+    a,b,c = resul
+   
+    fx = np.sum(c*(x**i)for i, c in enumerate(resul))
+    ym = np.mean(y)
+    r2 = np.sum((fx - ym)**2) / np.sum((y - ym)**2)
+    
+    #valores do ajuste
+    linha = fx
+    eq = 'y = ({:.4f}*x**2) + ({:.4f})*x + ({:.4f}) \n'.format(c,b,a)
+    r2 = 'R² = {:.4f}'.format(r2)
+    label = eq + r2
+    
+    plotgrafico(x, y, linha, label=label)
+
+    prev = []
+    for dataFut in array_prev:
+         prev.append(c*dataFut**2 + b*dataFut + a)
+   
+    return eq, r2, prev
+
+
+
+
+
+
+
+
+
+
 
 #importar dados
 df = pd.read_excel('Data/final_data.xlsx')
@@ -17,23 +261,42 @@ x = np.array(df['decimal date'])
 #gerar resultados
 resultado = lin(x, y)
 resultados = []
-resultados.append(resultado)
+resultados.append(resultado[:-1])
+
+prevLin = resultado[-1]
 
 resultado = logaritmo(x, y)
-resultados.append(resultado)
+resultados.append(resultado[:-1])
+
+prevLog = resultado[-1]
 
 resultado = exponencial(x, y)
-resultados.append(resultado)
+resultados.append(resultado[:-1])
+prevExp = resultado[-1]
 
 resultado = potencial(x, y)
-resultados.append(resultado)
+resultados.append(resultado[:-1])
+prevPot = resultado[-1]
 
 #resultado = geometrico(x, y)
 #resultados.append(resultado)
 
 resultado = polinomial(x, y)
-resultados.append(resultado)
+resultados.append(resultado[:-1]) 
+prevPol = resultado[-1]
 
-dfresultados = pd.DataFrame(resultados, columns=['equação', 'r²'])
-dfresultados.to_excel('resultadoCo2.xlsx')
 
+
+dfPrev = pd.DataFrame({'Ano': np.ones(12)*2034, 
+                       'Mês': np.arange(1,13), 
+                       'Decimal Date': array_prev,
+                       'Linear': prevLin,
+                       'Exponencial': prevExp,
+                       'Potencial': prevPot,
+                       'PrevPol': prevPol
+                       
+                       })
+
+dfresultados = pd.DataFrame(resultados,columns=['equação', 'r²'])
+dfresultados.to_excel('resultadoTemp.xlsx')
+dfPrev.to_excel("PrevCo2_x_tempo.xlsx")

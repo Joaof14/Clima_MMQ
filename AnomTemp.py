@@ -4,6 +4,11 @@ import pandas as pd
 
 
 
+array_prev = [2034.0410, 2034.1257, 2034.2049, 2034.2896, 2034.3716, 2034.4563, 2034.5383, 2034.6230, 2034.7077, 2034.7896, 2034.8743, 2034.9563]
+
+
+
+
 # funções para calcular
 def calcula_reg(coluna_x, coluna_y):
 
@@ -63,8 +68,12 @@ def lin(x, y):
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
+    prev = []
     
-    return eq, r2
+    for dataFut in array_prev:
+        prev.append(a*dataFut + b)
+
+    return eq, r2, prev
 
     
 
@@ -87,8 +96,16 @@ def logaritmo(x, y):
     
     # Gráficos
     plotgrafico(x, y, linha, label=label)
+    
+    
+    prev = []
+    
+    for dataFut in array_prev:
+        prev.append(a*np.log(dataFut) + b)
 
-    return eq, r2
+    
+
+    return eq, r2, prev
 
 
 def potencial(x, y):
@@ -116,11 +133,22 @@ def potencial(x, y):
     eq = 'y = {:.10f}*x**({:.10f}) - {:.4f}\n'.format(b,a, yNorm)
     r2 = 'R² = {:.10f}'.format(r2)
     label = eq + r2
+    
+    
+    prev = []
+    
+    for dataFut in array_prev:
+        prev.append(b*dataFut**a - yNorm)
+
+   
+    
     # Gráficos
     plotgrafico(x, y, linha, label=label)
+    
 
 
-    return eq, r2
+
+    return eq, r2, prev
 
 
 def exponencial(x, y):
@@ -150,13 +178,19 @@ def exponencial(x, y):
 
     
     label = eq + r2
+    
+    prev = []
+    
+    for dataFut in array_prev:
+        prev.append(b*np.exp(a*dataFut) - yNorm)
+    
 
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
     # criar return eq, r2
     
-    return eq, r2
+    return eq, r2, prev
 
 
 def geometrico(x, y):
@@ -186,9 +220,17 @@ def geometrico(x, y):
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
+    
+    prev = []
+     
+    for dataFut in array_prev:
+         prev.append(b*dataFut**a - yNorm)
+     
+    
+        
     # criar return eq, r2
     
-    return eq, r2
+    return eq, r2, prev
 
 
 def polinomial(x, y, grau=2):
@@ -211,14 +253,19 @@ def polinomial(x, y, grau=2):
     
     #valores do ajuste
     linha = fx
-    eq = 'y = ({:.10f}*x**2) + ({:.10f})*x + ({:.10f}) \n'.format(a,b,c)
+    eq = 'y = ({:.10f}*x**2) + ({:.10f})*x + ({:.10f}) \n'.format(c,b,a)
     r2 = 'R² = {:.10f}'.format(r2)
     label = eq + r2
     
     plotgrafico(x, y, linha, label=label)
 
 
-    return eq, r2
+    prev = []
+     
+    for dataFut in array_prev:
+         prev.append(c*dataFut**2 + b*dataFut + a)
+
+    return eq, r2, prev
 
 
 
@@ -246,24 +293,45 @@ x = df['decimal date'].values
 #gerar resultados
 resultado = lin(x, y)
 resultados = []
-resultados.append(resultado)
+resultados.append(resultado[:-1])
+
+prevLin = resultado[-1]
 
 resultado = logaritmo(x, y)
-resultados.append(resultado)
+resultados.append(resultado[:-1])
+
+prevLog = resultado[-1]
 
 resultado = exponencial(x, y)
-resultados.append(resultado)
+resultados.append(resultado[:-1])
+prevExp = resultado[-1]
 
 resultado = potencial(x, y)
-resultados.append(resultado)
+resultados.append(resultado[:-1])
+prevPot = resultado[-1]
 
 #resultado = geometrico(x, y)
 #resultados.append(resultado)
 
 resultado = polinomial(x, y)
-resultados.append(resultado) 
+resultados.append(resultado[:-1]) 
+prevPol = resultado[-1]
+
+
+
+dfPrev = pd.DataFrame({'Ano': np.ones(12)*2034, 
+                       'Mês': np.arange(1,13), 
+                       'Decimal Date': array_prev,
+                       'Linear': prevLin,
+                       'Exponencial': prevExp,
+                       'Potencial': prevPot,
+                       'PrevPol': prevPol
+                       
+                       
+                       })
 
 dfresultados = pd.DataFrame(resultados,columns=['equação', 'r²'])
+dfPrev.to_excel("PrevAnomTemp_x_tempo.xlsx")
 dfresultados.to_excel('resultadoTemp.xlsx')
 
 
