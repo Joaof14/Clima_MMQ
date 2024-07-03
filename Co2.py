@@ -298,5 +298,5 @@ dfPrev = pd.DataFrame({'Ano': np.ones(12)*2034,
                        })
 
 dfresultados = pd.DataFrame(resultados,columns=['equação', 'r²'])
-dfresultados.to_excel('resultadoTemp.xlsx')
+dfresultados.to_excel('resultadoCo2.xlsx')
 dfPrev.to_excel("PrevCo2_x_tempo.xlsx")
