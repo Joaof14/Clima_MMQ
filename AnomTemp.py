@@ -243,7 +243,7 @@ def polinomial(x, y, grau=2):
         for j in range(mB.size):
             mA[i][j] = (x**(i + j)).sum()
         mB[i] = (y * (x**(i))).sum()
-
+    mA[0][0] = x.size
     resul = np.linalg.solve(mA, mB)
     a,b,c = resul
    
