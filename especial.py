@@ -84,7 +84,7 @@ def logaritmo(x, y):
     
     #valores do ajuste
     linha = a*np.log(x) + b
-    eq = 'y = {:.6g}*log(x) + ({:.6g})\n'.format(a, b)
+    eq = 'y = {:.6g}*ln(x) + ({:.6g})\n'.format(a, b)
     r2 = 'R² = {:.6g}'.format(r2)
     label = eq + r2
     
