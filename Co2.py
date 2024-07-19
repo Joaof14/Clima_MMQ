@@ -32,6 +32,7 @@ def calcula_r2(coluna_x, coluna_y, a, b):
     return r2
 
 def plotgrafico( x,  y , linha, label):
+    label = label.replace('.', ',').replace('**','^').replace('*', '.')
     graf, eix = plt.subplots()
     eix.scatter(x,y, color = 'black')
     eix.plot(x,linha, label = label, color = 'red')
@@ -226,7 +227,7 @@ def polinomial(x, y, grau=2):
     
     #valores do ajuste
     linha = fx
-    eq = 'y = ({:.6g}*x**2) + ({:.6g}).x + ({:.6g}) \n'.format(c,b,a)
+    eq = 'y = ({:.6g}*x**2) + ({:.6g})*x + ({:.6g}) \n'.format(c,b,a)
     r2 = 'R² = {:.6g}'.format(r2)
     label = eq + r2
     

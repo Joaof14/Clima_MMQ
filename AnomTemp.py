@@ -37,6 +37,7 @@ def calcula_r2(coluna_x, coluna_y, a, b):
 
 
 def plotgrafico( x,  y , linha, label):
+    label = label.replace('.', ',').replace('**','^').replace('*', '.')
     graf, eix = plt.subplots()
     eix.scatter(x,y, color = 'black')
     eix.plot(x,linha, label = label, color = 'red')
