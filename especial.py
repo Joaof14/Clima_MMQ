@@ -58,15 +58,15 @@ def lin(x, y):
     
     #valores do ajuste
     linha = a*x + b
-    eq = 'y = {:.10f}*x + ({:.10f})\n'.format(a, b)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = {:f}*x + ({:f})\n'.format(a, b)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
     
-    return eq, r2
+    return eq, r2, a,b
 
     
 
@@ -83,14 +83,14 @@ def logaritmo(x, y):
     
     #valores do ajuste
     linha = a*np.log(x) + b
-    eq = 'y = {:.10f}*log(x) + ({:.10f})\n'.format(a, b)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = {:f}*log(x) + ({:f})\n'.format(a, b)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
-    return eq, r2
+    return eq, r2, a,b
 
 
 def potencial(x, y):
@@ -115,14 +115,14 @@ def potencial(x, y):
     #valores do ajuste
     linha = b*x**a - yNorm
     y = y - yNorm
-    eq = 'y = {:.10f}*x**({:.10f}) - {:.4f}\n'.format(b,a, yNorm)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = {:f}*x**({:f}) - {:.4f}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
 
-    return eq, r2
+    return eq, r2, a,b
 
 
 def exponencial(x, y):
@@ -147,8 +147,8 @@ def exponencial(x, y):
     #valores do ajuste
     linha = b*np.exp(a*x) - yNorm
     y = y - yNorm
-    eq = 'y = {:.10f}*e**({:.10f}*x) - {:.4f}\n'.format(b,a, yNorm)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = {:f}*e**({:f}*x) - {:.4f}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:f}'.format(r2)
 
     
     label = eq + r2
@@ -156,9 +156,9 @@ def exponencial(x, y):
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
-    # criar return eq, r2
+    # criar return eq, r2, a,b
     
-    return eq, r2
+    return eq, r2, a,b
 
 
 def geometrico(x, y):
@@ -181,16 +181,16 @@ def geometrico(x, y):
     #valores do ajuste
     linha = b*x**a - yNorm
     y = y - yNorm 
-    eq = 'y = {:.10f}*x**({:.10f}) - {:.4f}\n'.format(b,a, yNorm)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = {:f}*x**({:f}) - {:.4f}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
-    # criar return eq, r2
+    # criar return eq, r2, a,b
     
-    return eq, r2
+    return eq, r2, a,b
 
 
 def polinomial(x, y, grau=2):
@@ -213,14 +213,14 @@ def polinomial(x, y, grau=2):
     
     #valores do ajuste
     linha = fx
-    eq = 'y = ({:.10f}*x**2) + ({:.10f})*x + ({:.10f}) \n'.format(a,b,c)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = ({:f}*x**2) + ({:f})*x + ({:f}) \n'.format(a,b,c)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     plotgrafico(x, y, linha, label=label)
 
 
-    return eq, r2
+    return eq, r2, c,b,a
 
 
 #importar dados
@@ -236,24 +236,49 @@ x = df['Co2 ppm']
 #y = np.array([2,4,6,8,11,26])
 
 #gerar resultados
-resultado = lin(x, y)
+
+#gerar resultados
+coeficientesEsp = []
 resultados = []
-resultados.append(resultado)
+#gerar resultados
+
+
+resultado = lin(x, y)
+resultados.append(resultado[:2])
+
+coeficientesEsp.append(resultado[2:])
+
+
+
 
 resultado = logaritmo(x, y)
-resultados.append(resultado)
+resultados.append(resultado[:2])
+
+coeficientesEsp.append(resultado[2:])
+
+
+
 
 resultado = exponencial(x, y)
-resultados.append(resultado)
+resultados.append(resultado[:2])
+
+coeficientesEsp.append(resultado[2:])
+
+
+
 
 resultado = potencial(x, y)
-resultados.append(resultado)
+resultados.append(resultado[:2])
 
-#resultado = geometrico(x, y)
-#resultados.append(resultado)
+coeficientesEsp.append(resultado[2:])
+
+
 
 resultado = polinomial(x, y)
-resultados.append(resultado) 
+resultados.append(resultado[:2])
+
+coeficientesEsp.append(resultado[2:])
+
 
 dfresultados = pd.DataFrame(resultados,columns=['equação', 'r²'])
 dfresultados.to_excel('resultadoeEspecial.xlsx')

@@ -56,8 +56,8 @@ def lin(x, y):
     
     #valores do ajuste
     linha = a*x + b
-    eq = 'y = {:.4f}*x + ({:.4f})\n'.format(a, b)
-    r2 = 'R² = {:.4f}'.format(r2)
+    eq = 'y = {:f}*x + ({:f})\n'.format(a, b)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     # Gráficos
@@ -70,7 +70,7 @@ def lin(x, y):
     
     
     
-    return eq, r2, prev
+    return eq, r2, prev, a,b
     
 
 
@@ -89,10 +89,10 @@ def logaritmo(x, y):
     
     #valores do ajuste
     linha = a*np.log(x) + b
-    eq = 'y = {:.4f}*log(x) + ({:.4f})\n'.format(a, b)
-    r2 = 'R² = {:.4f}'.format(r2)
+    eq = 'y = {:f}*log(x) + ({:f})\n'.format(a, b)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
-    
+    ''
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
@@ -103,7 +103,7 @@ def logaritmo(x, y):
 
     
 
-    return eq, r2, prev
+    return eq, r2, prev, a,b
 
 
 def potencial(x, y):
@@ -121,8 +121,8 @@ def potencial(x, y):
     
     #valores do ajuste
     linha = b*x**a
-    eq = 'y = {:.4f}*x**({:.4f})\n'.format(b,a)
-    r2 = 'R² = {:.4f}'.format(r2)
+    eq = 'y = {:f}*x**({:f})\n'.format(b,a)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     # Gráficos
     plotgrafico(x, y, linha, label=label)
@@ -140,7 +140,7 @@ def potencial(x, y):
 
 
 
-    return eq, r2, prev
+    return eq, r2, prev, a,b
 
 
 def exponencial(x, y):
@@ -160,8 +160,8 @@ def exponencial(x, y):
 
     #valores do ajuste
     linha = b*np.exp(a*x)
-    eq = 'y = {:.4f}*e**({:.4f}*x)\n'.format(b,a)
-    r2 = 'R² = {:.4f}'.format(r2)
+    eq = 'y = {:f}*e**({:f}*x)\n'.format(b,a)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
 
     prev = []
@@ -175,7 +175,7 @@ def exponencial(x, y):
  
     # criar return eq, r2
     
-    return eq, r2, prev
+    return eq, r2, prev, a,b
 
 
 def geometrico(x, y):
@@ -193,8 +193,8 @@ def geometrico(x, y):
     
     #valores do ajuste
     linha = b*x**a
-    eq = 'y = {:.4f}*x**({:.4f})\n'.format(b,a)
-    r2 = 'R² = {:.4f}'.format(r2)
+    eq = 'y = {:f}*x**({:f})\n'.format(b,a)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     # Gráficos
@@ -226,8 +226,8 @@ def polinomial(x, y, grau=2):
     
     #valores do ajuste
     linha = fx
-    eq = 'y = ({:.4f}*x**2) + ({:.4f})*x + ({:.4f}) \n'.format(c,b,a)
-    r2 = 'R² = {:.4f}'.format(r2)
+    eq = 'y = ({:f}*x**2) + ({:f}).x + ({:f}) \n'.format(c,b,a)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     plotgrafico(x, y, linha, label=label)
@@ -236,7 +236,7 @@ def polinomial(x, y, grau=2):
     for dataFut in array_prev:
          prev.append(c*dataFut**2 + b*dataFut + a)
    
-    return eq, r2, prev
+    return eq, r2, prev, c, b, a
 
 
 
@@ -260,31 +260,49 @@ x = np.array(df['decimal date'])
 #y = np.array([2,4,6,8,11,26])
 
 #gerar resultados
-resultado = lin(x, y)
+coeficientesCo2 = []
 resultados = []
-resultados.append(resultado[:-1])
+#gerar resultados
 
-prevLin = resultado[-1]
+
+resultado = lin(x, y)
+resultados.append(resultado[:2])
+
+coeficientesCo2.append(resultado[3:])
+prevLin = resultado[2]
+
+
 
 resultado = logaritmo(x, y)
-resultados.append(resultado[:-1])
+resultados.append(resultado[:2])
 
-prevLog = resultado[-1]
+coeficientesCo2.append(resultado[3:])
+prevLog = resultado[2]
+
+
 
 resultado = exponencial(x, y)
-resultados.append(resultado[:-1])
-prevExp = resultado[-1]
+resultados.append(resultado[:2])
+
+coeficientesCo2.append(resultado[3:])
+prevExp = resultado[2]
+
+
 
 resultado = potencial(x, y)
-resultados.append(resultado[:-1])
-prevPot = resultado[-1]
+resultados.append(resultado[:2])
 
-#resultado = geometrico(x, y)
-#resultados.append(resultado)
+coeficientesCo2.append(resultado[3:])
+prevPot = resultado[2]
+
+
 
 resultado = polinomial(x, y)
-resultados.append(resultado[:-1]) 
-prevPol = resultado[-1]
+resultados.append(resultado[:2])
+
+coeficientesCo2.append(resultado[3:]) 
+prevPol = resultado[2]
+
 
 
 

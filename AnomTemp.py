@@ -61,8 +61,8 @@ def lin(x, y):
     
     #valores do ajuste
     linha = a*x + b
-    eq = 'y = {:.10f}*x + ({:.10f})\n'.format(a, b)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = {:f}*x + ({:f})\n'.format(a, b)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     # Gráficos
@@ -73,7 +73,7 @@ def lin(x, y):
     for dataFut in array_prev:
         prev.append(a*dataFut + b)
 
-    return eq, r2, prev
+    return eq, r2, prev, a,b
 
     
 
@@ -90,8 +90,8 @@ def logaritmo(x, y):
     
     #valores do ajuste
     linha = a*np.log(x) + b
-    eq = 'y = {:.10f}*log(x) + ({:.10f})\n'.format(a, b)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = {:f}*log(x) + ({:f})\n'.format(a, b)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     # Gráficos
@@ -105,7 +105,7 @@ def logaritmo(x, y):
 
     
 
-    return eq, r2, prev
+    return eq, r2, prev, a,b
 
 
 def potencial(x, y):
@@ -130,8 +130,8 @@ def potencial(x, y):
     #valores do ajuste
     linha = b*x**a - yNorm
     y = y - yNorm
-    eq = 'y = {:.10f}*x**({:.10f}) - {:.4f}\n'.format(b,a, yNorm)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = {:f}*x**({:f}) - {:f}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     
@@ -148,7 +148,7 @@ def potencial(x, y):
 
 
 
-    return eq, r2, prev
+    return eq, r2, prev, a,b
 
 
 def exponencial(x, y):
@@ -173,8 +173,8 @@ def exponencial(x, y):
     #valores do ajuste
     linha = b*np.exp(a*x) - yNorm
     y = y - yNorm
-    eq = 'y = {:.10f}*e**({:.10f}*x) - {:.4f}\n'.format(b,a, yNorm)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = {:f}*e**({:f}*x) - {:f}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:f}'.format(r2)
 
     
     label = eq + r2
@@ -190,7 +190,7 @@ def exponencial(x, y):
 
     # criar return eq, r2
     
-    return eq, r2, prev
+    return eq, r2, prev, a,b
 
 
 def geometrico(x, y):
@@ -213,8 +213,8 @@ def geometrico(x, y):
     #valores do ajuste
     linha = b*x**a - yNorm
     y = y - yNorm 
-    eq = 'y = {:.10f}*x**({:.10f}) - {:.4f}\n'.format(b,a, yNorm)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = {:f}*x**({:f}) - {:f}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     # Gráficos
@@ -230,7 +230,7 @@ def geometrico(x, y):
         
     # criar return eq, r2
     
-    return eq, r2, prev
+    return eq, r2, prev, a,b
 
 
 def polinomial(x, y, grau=2):
@@ -253,8 +253,8 @@ def polinomial(x, y, grau=2):
     
     #valores do ajuste
     linha = fx
-    eq = 'y = ({:.10f}*x**2) + ({:.10f})*x + ({:.10f}) \n'.format(c,b,a)
-    r2 = 'R² = {:.10f}'.format(r2)
+    eq = 'y = ({:f}*x**2) + ({:f})*x + ({:f}) \n'.format(c,b,a)
+    r2 = 'R² = {:f}'.format(r2)
     label = eq + r2
     
     plotgrafico(x, y, linha, label=label)
@@ -265,7 +265,7 @@ def polinomial(x, y, grau=2):
     for dataFut in array_prev:
          prev.append(c*dataFut**2 + b*dataFut + a)
 
-    return eq, r2, prev
+    return eq, r2, prev, c, b, a
 
 
 
@@ -289,33 +289,48 @@ x = df['decimal date'].values
 #x = np.array([1,2,3,4,5, 9])
 
 #y = np.array([2,4,6,8,11,26])
-
-#gerar resultados
-resultado = lin(x, y)
+coeficientesAnomtemp = []
 resultados = []
-resultados.append(resultado[:-1])
+#gerar resultados
 
-prevLin = resultado[-1]
+
+resultado = lin(x, y)
+resultados.append(resultado[:2])
+
+coeficientesAnomtemp.append(resultado[3:])
+prevLin = resultado[2]
+
+
 
 resultado = logaritmo(x, y)
-resultados.append(resultado[:-1])
+resultados.append(resultado[:2])
 
-prevLog = resultado[-1]
+coeficientesAnomtemp.append(resultado[3:])
+prevLog = resultado[2]
+
+
 
 resultado = exponencial(x, y)
-resultados.append(resultado[:-1])
-prevExp = resultado[-1]
+resultados.append(resultado[:2])
+
+coeficientesAnomtemp.append(resultado[3:])
+prevExp = resultado[2]
+
+
 
 resultado = potencial(x, y)
-resultados.append(resultado[:-1])
-prevPot = resultado[-1]
+resultados.append(resultado[:2])
 
-#resultado = geometrico(x, y)
-#resultados.append(resultado)
+coeficientesAnomtemp.append(resultado[3:])
+prevPot = resultado[2]
+
+
 
 resultado = polinomial(x, y)
-resultados.append(resultado[:-1]) 
-prevPol = resultado[-1]
+resultados.append(resultado[:2])
+
+coeficientesAnomtemp.append(resultado[3:]) 
+prevPol = resultado[2]
 
 
 
