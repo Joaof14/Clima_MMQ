@@ -58,8 +58,8 @@ def lin(x, y):
     
     #valores do ajuste
     linha = a*x + b
-    eq = 'y = {:f}*x + ({:f})\n'.format(a, b)
-    r2 = 'R² = {:f}'.format(r2)
+    eq = 'y = {:.6g}*x + ({:.6g})\n'.format(a, b)
+    r2 = 'R² = {:.6g}'.format(r2)
     label = eq + r2
     
     # Gráficos
@@ -83,8 +83,8 @@ def logaritmo(x, y):
     
     #valores do ajuste
     linha = a*np.log(x) + b
-    eq = 'y = {:f}*log(x) + ({:f})\n'.format(a, b)
-    r2 = 'R² = {:f}'.format(r2)
+    eq = 'y = {:.6g}*log(x) + ({:.6g})\n'.format(a, b)
+    r2 = 'R² = {:.6g}'.format(r2)
     label = eq + r2
     
     # Gráficos
@@ -115,8 +115,8 @@ def potencial(x, y):
     #valores do ajuste
     linha = b*x**a - yNorm
     y = y - yNorm
-    eq = 'y = {:f}*x**({:f}) - {:.4f}\n'.format(b,a, yNorm)
-    r2 = 'R² = {:f}'.format(r2)
+    eq = 'y = {:.6g}*x**({:.6g}) - {:.4f}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:.6g}'.format(r2)
     label = eq + r2
     # Gráficos
     plotgrafico(x, y, linha, label=label)
@@ -147,8 +147,8 @@ def exponencial(x, y):
     #valores do ajuste
     linha = b*np.exp(a*x) - yNorm
     y = y - yNorm
-    eq = 'y = {:f}*e**({:f}*x) - {:.4f}\n'.format(b,a, yNorm)
-    r2 = 'R² = {:f}'.format(r2)
+    eq = 'y = {:.6g}*e**({:.6g}*x) - {:.4f}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:.6g}'.format(r2)
 
     
     label = eq + r2
@@ -181,8 +181,8 @@ def geometrico(x, y):
     #valores do ajuste
     linha = b*x**a - yNorm
     y = y - yNorm 
-    eq = 'y = {:f}*x**({:f}) - {:.4f}\n'.format(b,a, yNorm)
-    r2 = 'R² = {:f}'.format(r2)
+    eq = 'y = {:.6g}*x**({:.6g}) - {:.6g}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:.6g}'.format(r2)
     label = eq + r2
     
     # Gráficos
@@ -213,8 +213,8 @@ def polinomial(x, y, grau=2):
     
     #valores do ajuste
     linha = fx
-    eq = 'y = ({:f}*x**2) + ({:f})*x + ({:f}) \n'.format(a,b,c)
-    r2 = 'R² = {:f}'.format(r2)
+    eq = 'y = ({:.6g}*x**2) + ({:.6g})*x + ({:.6g}) \n'.format(a,b,c)
+    r2 = 'R² = {:.6g}'.format(r2)
     label = eq + r2
     
     plotgrafico(x, y, linha, label=label)
