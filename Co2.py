@@ -1,12 +1,9 @@
-
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# funções para calcular
 
-
-# criar função tabela
+array_prev = [2034.0410, 2034.1257, 2034.2049, 2034.2896, 2034.3716, 2034.4563, 2034.5383, 2034.6230, 2034.7077, 2034.7896, 2034.8743, 2034.9563]
 
 
 # funções para calcular
@@ -33,8 +30,6 @@ def calcula_r2(coluna_x, coluna_y, a, b):
     r2 = np.sum((fx - ym)**2) / np.sum((coluna_y - ym)**2)
 
     return r2
-
-
 
 def plotgrafico( x,  y , linha, label):
     graf, eix = plt.subplots()
@@ -68,8 +63,16 @@ def lin(x, y):
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
+    prev = []
     
-    return eq, r2
+    for dataFut in array_prev:
+        prev.append(a*dataFut + b)
+    
+    
+    
+    return eq, r2, prev
+    
+
 
     
 
@@ -93,7 +96,14 @@ def logaritmo(x, y):
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
-    return eq, r2
+    prev = []
+    
+    for dataFut in array_prev:
+        prev.append(a*np.log(dataFut) + b)
+
+    
+
+    return eq, r2, prev
 
 
 def potencial(x, y):
@@ -117,8 +127,20 @@ def potencial(x, y):
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
-    
-    return eq, r2
+    prev = []
+   
+    for dataFut in array_prev:
+       prev.append(b*dataFut**a )
+
+  
+   
+   # Gráficos
+    plotgrafico(x, y, linha, label=label)
+   
+
+
+
+    return eq, r2, prev
 
 
 def exponencial(x, y):
@@ -142,12 +164,18 @@ def exponencial(x, y):
     r2 = 'R² = {:.4f}'.format(r2)
     label = eq + r2
 
+    prev = []
+    
+    for dataFut in array_prev:
+        prev.append(b*np.exp(a*dataFut))
+    
+ 
     # Gráficos
     plotgrafico(x, y, linha, label=label)
-
+ 
     # criar return eq, r2
     
-    return eq, r2
+    return eq, r2, prev
 
 
 def geometrico(x, y):
@@ -187,7 +215,8 @@ def polinomial(x, y, grau=2):
         for j in range(mB.size):
             mA[i][j] = (x**(i + j)).sum()
         mB[i] = (y * (x**(i))).sum()
-        mA[0][0] = x.size
+    mA[0][0] = x.size
+    
     resul = np.linalg.solve(mA, mB)
     a,b,c = resul
    
@@ -197,13 +226,78 @@ def polinomial(x, y, grau=2):
     
     #valores do ajuste
     linha = fx
-    eq = 'y = ({:.4f}*x**2) + ({:.4f})*x + ({:.4f}) \n'.format(a,b,c)
+    eq = 'y = ({:.4f}*x**2) + ({:.4f})*x + ({:.4f}) \n'.format(c,b,a)
     r2 = 'R² = {:.4f}'.format(r2)
     label = eq + r2
     
     plotgrafico(x, y, linha, label=label)
 
+    prev = []
+    for dataFut in array_prev:
+         prev.append(c*dataFut**2 + b*dataFut + a)
+   
+    return eq, r2, prev
 
-    return eq, r2
 
 
+
+
+
+
+
+
+
+
+#importar dados
+df = pd.read_excel('Data/final_data.xlsx')
+
+# fazer pra CO2
+y = np.array(df['Co2 ppm'])
+x = np.array(df['decimal date'])
+
+#x = np.array([1,2,3,4,5, 9])
+
+#y = np.array([2,4,6,8,11,26])
+
+#gerar resultados
+resultado = lin(x, y)
+resultados = []
+resultados.append(resultado[:-1])
+
+prevLin = resultado[-1]
+
+resultado = logaritmo(x, y)
+resultados.append(resultado[:-1])
+
+prevLog = resultado[-1]
+
+resultado = exponencial(x, y)
+resultados.append(resultado[:-1])
+prevExp = resultado[-1]
+
+resultado = potencial(x, y)
+resultados.append(resultado[:-1])
+prevPot = resultado[-1]
+
+#resultado = geometrico(x, y)
+#resultados.append(resultado)
+
+resultado = polinomial(x, y)
+resultados.append(resultado[:-1]) 
+prevPol = resultado[-1]
+
+
+
+dfPrev = pd.DataFrame({'Ano': np.ones(12)*2034, 
+                       'Mês': np.arange(1,13), 
+                       'Decimal Date': array_prev,
+                       'Linear': prevLin,
+                       'Exponencial': prevExp,
+                       'Potencial': prevPot,
+                       'PrevPol': prevPol
+                       
+                       })
+
+dfresultados = pd.DataFrame(resultados,columns=['equação', 'r²'])
+dfresultados.to_excel('resultadoCo2.xlsx')
+dfPrev.to_excel("PrevCo2_x_tempo.xlsx")

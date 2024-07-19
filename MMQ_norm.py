@@ -1,12 +1,6 @@
-
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
-# funções para calcular
-
-
-# criar função tabela
 
 
 # funções para calcular
@@ -61,8 +55,8 @@ def lin(x, y):
     
     #valores do ajuste
     linha = a*x + b
-    eq = 'y = {:.4f}*x + ({:.4f})\n'.format(a, b)
-    r2 = 'R² = {:.4f}'.format(r2)
+    eq = 'y = {:.10f}*x + ({:.10f})\n'.format(a, b)
+    r2 = 'R² = {:.10f}'.format(r2)
     label = eq + r2
     
     # Gráficos
@@ -86,8 +80,8 @@ def logaritmo(x, y):
     
     #valores do ajuste
     linha = a*np.log(x) + b
-    eq = 'y = {:.4f}*log(x) + ({:.4f})\n'.format(a, b)
-    r2 = 'R² = {:.4f}'.format(r2)
+    eq = 'y = {:.10f}*log(x) + ({:.10f})\n'.format(a, b)
+    r2 = 'R² = {:.10f}'.format(r2)
     label = eq + r2
     
     # Gráficos
@@ -97,6 +91,12 @@ def logaritmo(x, y):
 
 
 def potencial(x, y):
+
+    #Normalização
+   
+    yNorm = np.abs(np.min(y)) + 1
+    y =  y + yNorm
+    
 
     x_ = np.log(x)
     y_ = np.log(y)
@@ -110,18 +110,23 @@ def potencial(x, y):
     b = np.exp(b)
     
     #valores do ajuste
-    linha = b*x**a
-    eq = 'y = {:.4f}*x**({:.4f})\n'.format(b,a)
-    r2 = 'R² = {:.4f}'.format(r2)
+    linha = b*x**a - yNorm
+    y = y - yNorm
+    eq = 'y = {:.10f}*x**({:.10f}) - {:.4f}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:.10f}'.format(r2)
     label = eq + r2
     # Gráficos
     plotgrafico(x, y, linha, label=label)
 
-    
+
     return eq, r2
 
 
 def exponencial(x, y):
+    
+    #Normalização
+    yNorm = np.abs(np.min(y)) + 1
+    y =  y + yNorm
 
     y_ = np.log(y)
     x_ = x
@@ -137,9 +142,12 @@ def exponencial(x, y):
     b = np.exp(b)
 
     #valores do ajuste
-    linha = b*np.exp(a*x)
-    eq = 'y = {:.4f}*e**({:.4f}*x)\n'.format(b,a)
-    r2 = 'R² = {:.4f}'.format(r2)
+    linha = b*np.exp(a*x) - yNorm
+    y = y - yNorm
+    eq = 'y = {:.10f}*e**({:.10f}*x) - {:.4f}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:.10f}'.format(r2)
+
+    
     label = eq + r2
 
     # Gráficos
@@ -151,6 +159,10 @@ def exponencial(x, y):
 
 
 def geometrico(x, y):
+    
+    #Normalização
+    yNorm = np.abs(np.min(y)) + 1
+    y =  y + yNorm
 
     y_ = np.log(y)
     x_ = x
@@ -164,9 +176,10 @@ def geometrico(x, y):
     b = np.exp(b)
     
     #valores do ajuste
-    linha = b*x**a
-    eq = 'y = {:.4f}*x**({:.4f})\n'.format(b,a)
-    r2 = 'R² = {:.4f}'.format(r2)
+    linha = b*x**a - yNorm
+    y = y - yNorm 
+    eq = 'y = {:.10f}*x**({:.10f}) - {:.4f}\n'.format(b,a, yNorm)
+    r2 = 'R² = {:.10f}'.format(r2)
     label = eq + r2
     
     # Gráficos
@@ -187,7 +200,7 @@ def polinomial(x, y, grau=2):
         for j in range(mB.size):
             mA[i][j] = (x**(i + j)).sum()
         mB[i] = (y * (x**(i))).sum()
-        mA[0][0] = x.size
+
     resul = np.linalg.solve(mA, mB)
     a,b,c = resul
    
@@ -197,13 +210,12 @@ def polinomial(x, y, grau=2):
     
     #valores do ajuste
     linha = fx
-    eq = 'y = ({:.4f}*x**2) + ({:.4f})*x + ({:.4f}) \n'.format(a,b,c)
-    r2 = 'R² = {:.4f}'.format(r2)
+    eq = 'y = ({:.10f}*x**2) + ({:.10f})*x + ({:.10f}) \n'.format(a,b,c)
+    r2 = 'R² = {:.10f}'.format(r2)
     label = eq + r2
     
     plotgrafico(x, y, linha, label=label)
 
 
     return eq, r2
-
 
