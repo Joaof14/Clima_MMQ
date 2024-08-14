@@ -1,0 +1,28 @@
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.851
+Model:                            OLS   Adj. R-squared:                  0.850
+Method:                 Least Squares   F-statistic:                     2212.
+Date:                Wed, 14 Aug 2024   Prob (F-statistic):          1.71e-321
+Time:                        16:30:43   Log-Likelihood:                 462.05
+No. Observations:                 780   AIC:                            -918.1
+Df Residuals:                     777   BIC:                            -904.1
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        618.8973     60.450     10.238      0.000     500.233     737.561
+x1            -0.6380      0.061    -10.509      0.000      -0.757      -0.519
+x2             0.0002   1.52e-05     10.785      0.000       0.000       0.000
+==============================================================================
+Omnibus:                       10.682   Durbin-Watson:                   0.612
+Prob(Omnibus):                  0.005   Jarque-Bera (JB):               11.193
+Skew:                           0.239   Prob(JB):                      0.00371
+Kurtosis:                       3.341   Cond. No.                     5.00e+10
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large,  5e+10. This might indicate that there are
+strong multicollinearity or other numerical problems.
