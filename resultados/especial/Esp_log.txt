@@ -1,0 +1,25 @@
+                              OLS Regression Results                             
+=================================================================================
+Dep. Variable:     temperature anomalies   R-squared:                       0.851
+Model:                               OLS   Adj. R-squared:                  0.851
+Method:                    Least Squares   F-statistic:                     4434.
+Date:                   Wed, 14 Aug 2024   Prob (F-statistic):          1.48e-323
+Time:                           16:56:58   Log-Likelihood:                 462.37
+No. Observations:                    780   AIC:                            -920.7
+Df Residuals:                        778   BIC:                            -911.4
+Df Model:                              1                                         
+Covariance Type:               nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        -21.4879      0.329    -65.376      0.000     -22.133     -20.843
+Co2 ppm        3.7214      0.056     66.586      0.000       3.612       3.831
+==============================================================================
+Omnibus:                       13.035   Durbin-Watson:                   0.623
+Prob(Omnibus):                  0.001   Jarque-Bera (JB):               14.010
+Skew:                           0.263   Prob(JB):                     0.000908
+Kurtosis:                       3.394   Cond. No.                         415.
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
+import statsmodels.api as sm
 
 array_prev = [2034.0410, 2034.1257, 2034.2049, 2034.2896, 2034.3716, 2034.4563, 2034.5383, 2034.6230, 2034.7077, 2034.7896, 2034.8743, 2034.9563]
 
@@ -45,10 +45,24 @@ def plotgrafico( x,  y , linha, label):
     graf.show()
 
     
+def fileText(filename, sumario):
+    file = open("resultados/especial/" +  filename + ".txt", "w")
+    file.write(sumario.as_text())
+    file.close()
+
 
 
 
 def lin(x, y):
+
+    x_ = x
+    y_ = y
+    x_ = sm.add_constant(x_)
+    model = sm.OLS(y_,x_)
+    res = model.fit()
+    resSum = res.summary()
+    fileText("Esp_linear", resSum)
+
     x_ = x
     y_ = y
 
@@ -77,6 +91,15 @@ def logaritmo(x, y):
     x_ = np.log(x)
     y_ = y
 
+    x_ = sm.add_constant(x_)
+    model = sm.OLS(y_,x_)
+    res = model.fit()
+    resSum = res.summary()
+    fileText("Esp_log", resSum)
+
+    x_ = np.log(x)
+    y_ = y
+
     # Calculos de coeficientes
     a, b = calcula_reg(x_, y_)
     # Calculo r2
@@ -101,6 +124,14 @@ def potencial(x, y):
     yNorm = np.abs(np.min(y)) + 1
     y =  y + yNorm
     
+    x_ = np.log(x)
+    y_ = np.log(y)
+
+    x_ = sm.add_constant(x_)
+    model = sm.OLS(y_,x_)
+    res = model.fit()
+    resSum = res.summary()
+    fileText("Esp_pot", resSum)
 
     x_ = np.log(x)
     y_ = np.log(y)
@@ -131,6 +162,15 @@ def exponencial(x, y):
     #Normalização
     yNorm = np.abs(np.min(y)) + 1
     y =  y + yNorm
+
+    y_ = np.log(y)
+    x_ = x
+
+    x_ = sm.add_constant(x_)
+    model = sm.OLS(y_,x_)
+    res = model.fit()
+    resSum = res.summary()
+    fileText("Esp_exp", resSum)
 
     y_ = np.log(y)
     x_ = x
@@ -195,6 +235,19 @@ def geometrico(x, y):
 
 
 def polinomial(x, y, grau=2):
+
+    x_ = x
+    y_ = y
+
+    x_p = np.column_stack((x_, x_**grau))
+
+
+    x_p = sm.add_constant(x_p)
+    model = sm.OLS(y_,x_p)
+    res = model.fit()
+    resSum = res.summary()
+
+    fileText("Esp_Quad", resSum)
 
     n = grau + 1
     mA = np.zeros((n, n))
