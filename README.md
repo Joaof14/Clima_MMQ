@@ -1,10 +1,29 @@
 # Clima_MMQ
-Este trabalho ainda em desenvolvimento busca realizar a análise dados históricos da média de Concentração de CO2 na atmosfera em partes por milhão (ppm) e Anomalias de temperatura em três casos: Concentração de CO2 ao longo do tempo; Anomalias de Temperatura ao longo do tempo. Anomalias de temperatura em relação a concentração de CO2. Os dados para realizar a análise podem ser encontrados nas referências [8] e [9] respectivamente e foram coletados e preparados pela bilioteca pandas, de acordo com o Arquivo de formato jupyter notebook - Preparo dos dados.
-O arquuivo MMQ_statsModel, realiza a aplicação do Métodos dos Mínimos Quadrados nos três casos a partir de diferentes funções de aproximação e debate os resultados. Para verificar a significância dos resultados, é levado em consideração a aplicação do teste t de student para os coeficientes, e o teste F para o modelo. Para a aplicação dos métodos foi utilizado a biblioteca statsmodels, enquanto que para tratar de algumas transformações necessárias aos dados foi utilizada a biblioteca numpy, com os gráficos sendo construídos a partir da biblioteca matplotlib.
-As análises ainda estão a ser construídas.
 
+Este projeto em desenvolvimento busca analisar dados históricos da média de Concentração de CO2 na atmosfera (em partes por milhão - ppm) e Anomalias de Temperatura em três cenários:
+1. Concentração de CO2 ao longo do tempo.
+2. Anomalias de Temperatura ao longo do tempo.
+3. Anomalias de Temperatura em relação à Concentração de CO2.
 
-Referência relevantes para o estudo:
+## Dados
+
+Os dados utilizados para a análise podem ser encontrados nas referências [8] e [9]. Eles foram coletados e preparados utilizando a biblioteca `pandas`, conforme descrito no arquivo Jupyter Notebook - Preparo dos Dados.
+
+## Metodologia
+
+O arquivo `MMQ_statsModel` aplica o Método dos Mínimos Quadrados (MMQ) nos três cenários mencionados, utilizando diferentes funções de aproximação e discutindo os resultados. Para verificar a significância dos resultados, são aplicados:
+- Teste t de Student para os coeficientes.
+- Teste F para o modelo.
+
+## Ferramentas Utilizadas
+
+- **Bibliotecas**: `statsmodels` para os modelos estatísticos, `numpy` para transformações de dados e `matplotlib` para visualizações gráficas.
+
+## Status
+
+As análises dos resultados ainda estão em desenvolvimento.
+
+## Referência relevantes para o estudo:
 [1] CORTESE, Tatiana Tucunduva P.; NATALINI, Gilberto. Mudanças Climáticas: Do Global ao Local. Barueri: Editora Manole, 2014. E-book. ISBN 9788520446607. Disponível em: https://app.minhabiblioteca.com.br/#/books/9788520446607/. Acesso em: 27 jul. 2024.
 
 [2]SILVA, Cleyton Martins da; ARBILLA, Graciela. Emissões atmosféricas e mudanças climáticas. 1. ed. Rio de Janeiro: Freitas Bastos, 2022. E-book. Disponível em: https://plataforma.bvirtual.com.br. Acesso em: 24 jul. 2024.
