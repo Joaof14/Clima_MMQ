@@ -10,4 +10,4 @@ Este branch foca na utilização da biblioteca `statsmodels` em arquivos Jupyter
 
 ## Status
 
-Os notebooks estão sendo desenvolvidos e refinados para incluir análises detalhadas e visualizações claras dos resultados.
+Os notebooks foram desenvolvidos e refinados para incluir análises detalhadas e visualizações claras dos resultados.
