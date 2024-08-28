@@ -1,7 +1,18 @@
 # Clima_MMQ
-Trabalho de análise de anomalias de temperatura em terra e mar e concentração de CO2 na atmosfera, utilizando-se de método dos mínimos quadrados. Analysis of land and sea temperature anomalies and CO2 concentration in the atmosphere, using the least squares method.
+# Comparativo_StatsModel
+
+Este branch contém um estudo comparativo dos resultados obtidos utilizando códigos de autoria própria em Python. O objetivo é analisar a precisão e a eficiência dos modelos estatísticos aplicados aos dados históricos de Concentração de CO2 e Anomalias de Temperatura.
+
+## Conteúdo
 
 
-urlConcentr = "https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_mm_mlo.txt"
+- **Métodos Utilizados**: Aplicação do Método dos Mínimos Quadrados (MMQ) com diferentes funções de aproximação, a partir do `statsmodels` e códigos de autoria própria.
+- **Bibliotecas Utilizadas**: `numpy`, `pandas`, `matplotlib`.
 
-https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/global/time-series/globe/land_ocean/ytd/5/1850-2024
+## Status
+Branch encerrada durante o desenvolvelvimento dos testes de hipótese devido a escolha de usar a biblioteca `statsmodel`
+
+
+
+
+
